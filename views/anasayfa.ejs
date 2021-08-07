@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<title>Adam Asmaca</title>
+</head>
+<script>	
+	var btnHarf = document.querySelectorAll("#btnHarf");
+	</script>
+<body>
+	
+	<div class="alert alert-primary text-center">
+		<strong>ADAM ASMACA</strong> 
+	</div>
+    <p></p>
+	
+	<div class="container" >
+	  <div class="row p-10">
+		<div class="col-4 text-center">
+		<a type="button" class="btn btn-success" onclick="basla()">Kelime Değiştir</a> <br><br>
+		<a type="button" class="btn btn-success" href="/">Temizle</a> <br><br>
+		</div>
+		<div class="col-4" >
+		<b>Toplam Hak: 5</b> </br>
+		<b>Kullandığınız Hak:<%=hak %> </b>
+		<b id="hak"></b>
+        <h2><%=kelime %></h2>
+        <h2><%=harf %>geldi</h2>
+		<div id="adam"><%adam[hak]%> </div>		
+		</div>
+		<div class="col-4 text-center">
+			<div class="alert alert-danger">
+				<b>Kelime: <%=kelime_ekran %> </b>
+				<p id="soru"></p>
+			</div>
+			<div id="harfler">
+                <% harfler.forEach(element =>{%>
+                    <a type="button" class="btn btn-success m-1" id="btnHarf" onclick=doldur() href="/<%= element %>"><%= element %> </a>
+                <%}); %> 
+			</div> 
+			<br>	
+		</div>
+	  </div>
+	</div>
+</body>
+</html>
