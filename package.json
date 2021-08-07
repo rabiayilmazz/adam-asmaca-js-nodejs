@@ -1,6 +1,27 @@
 {
   "dependencies": {
+    "bootstrap": "^5.1.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "jquery": "^3.6.0",
     "nodemon": "^2.0.12"
-  }
+  },
+  "name": "adam-asmaca-js-nodejs",
+  "description": "",
+  "version": "1.0.0",
+  "main": "intro.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rabiayilmazz/adam-asmaca-js-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rabiayilmazz/adam-asmaca-js-nodejs/issues"
+  },
+  "homepage": "https://github.com/rabiayilmazz/adam-asmaca-js-nodejs#readme"
 }
