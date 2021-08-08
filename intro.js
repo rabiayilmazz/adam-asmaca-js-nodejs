@@ -1,3 +1,4 @@
+var http = require('http')
 var express = require('express');
 var app = express();
 var path = require('path');
@@ -62,48 +63,46 @@ function bos_harf(kelime){
     return dizi_harf;
 }
 
-function getHarf(harf) {
-	var input_var = document.getElementById('btnharf');
-	doldur(harf);
-	}
+function doldur(harf,kelime,kelime_ekran){
+    for (var key in kelime) {
+        if (kelime[key] == harf) {
+            kelime_ekran[key] = harf;
+        } 
+    }
+    return kelime_ekran;	
+}
 
-    function doldur(harf){
-		for (const key in kelime) {
-			if (kelime[key] == harf) {
-				kelime_ekran[key] = harf;
-			} 
-		}
-		hak_kontrol(harf,kelime);	
-	}
+function kazandiniz(){
+    var sonuc = kelime_ekran.includes(sembol);
+    return sonuc;
+}
 
-    function kazandiniz(){
-		var sonuc = kelime_ekran.includes(sembol);
-		return sonuc;
-	}
+function hak_kontrol(harf, kelime){
+    var kontrol = kelime.includes(harf);
 
-    function hak_kontrol(harf, kelime){
-		var kontrol = kelime.includes(harf);
-		if(kontrol == false){
-			hak++;
-		}
-	}
-	
+    if(kontrol === false){
+        hak++;
+    }
+    
+}
+
+kelime = kelime_sec(kelimeler); 
+kelime_ekran = bos_harf(kelime);  
 
 app.get('/', function(req, res) { 
     hak = 0;
-    kelime = kelime_sec(kelimeler); 
-    kelime_ekran = kelime_goster(bos_harf(kelime));  
-    res.render('anasayfa',{ kelime: " ", kelime_ekran:kelime_ekran, adam:adam, hak:hak, harf:req.params.harf, harfler:harfler}); 
+    res.render('anasayfa',{ kelime: kelime, kelime_ekran:kelime_goster(kelime_ekran), adam:adam, hak:hak, harf:req.params.harf, harfler:harfler}); 
     res.end();  
 });
 
 
 app.get('/:harf', function(req, res) { 
-
-    //res.send(kelime_sec(kelimeler));
-    res.render('anasayfa',{ kelime: kelime, harf:req.params.harf, harfler:harfler,hak:hak});
+    kelime_ekran = doldur(req.params.harf,kelime, kelime_ekran);
+    hak = hak_kontrol(req.params.harf,kelime);
     
-    getHarf(req.params.harf);
+    //res.send(kelime_sec(kelimeler));
+    res.render('anasayfa', { kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), adam:adam, hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()});
+
     res.end();
     });
         
