@@ -15,14 +15,6 @@ var kelime_ekran;
 var kelime_kontrol;
 var hak = 0;
 var sembol = "_ ";
-var adam = [];
-	adam[0]='<pre> -------</br> |/    |</br> |</br> |</br> |</br> |</br> |</br>/|\\</br>-------------</pre>';
-	adam[1]='<pre> -------</br> |/    |</br> |     o</br> |</br> |</br> |</br> |</br>/|\\</br>-------------</pre>';
-	adam[2]='<pre> -------</br> |/    |</br> |     o</br> |     |</br> |     |</br> |</br> |</br>/|\\</br>-------------</pre>';
-	adam[3]='<pre> -------</br> |/    |</br> |     o</br> |     |</br> |     |</br> |    /</br> |</br>/|\\</br>-------------</pre>';
-	adam[4]='<pre> -------</br> |/    |</br> |     o</br> |     |</br> |     |</br> |    / \\</br> |</br>/|\\</br>-------------</pre>';
-	adam[5]='<pre> -------</br> |/    |</br> |     o</br> |   --|</br> |     |</br> |    / \\</br> |</br>/|\\</br>-------------</pre>';
-	adam[6]='<pre> -------</br> |/    |</br> |     o</br> |   --|--</br> |     |</br> |    / \\</br> |</br>/|\\</br>---OYUN BİTTi--</pre>';
 	
 
 function kelime_sec (dizi){
@@ -91,22 +83,22 @@ kelime_kontrol = harf(kelime);
 app.get('/', function(req, res) { 
     hak = 0;
     kelime = kelime_sec(kelimeler); 
-    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(bos_harf(kelime)), adam:adam, hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
+    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(bos_harf(kelime)), hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
     sonuc = false;
     res.end();  
 });
 
 app.get('/temizle', function(req, res) { 
     hak = 0;
-    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(bos_harf(kelime)), adam:adam, hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
     sonuc= false;
+    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(bos_harf(kelime)), hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
     res.end();  
 });
 
 app.get('/:harf', function(req, res) { 
     kelime_ekran = doldur(req.params.harf, kelime, kelime_ekran);
     hak = hak_kontrol(req.params.harf, kelime_kontrol);
-    res.render('anasayfa', { kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), adam:adam, hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()});
+    res.render('anasayfa', { kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()});
     res.end();
     });
         
