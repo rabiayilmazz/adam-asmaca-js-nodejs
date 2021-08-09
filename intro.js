@@ -5,15 +5,14 @@ var path = require('path');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(express.static("public"));
+
 var kelimeler = ["panda", "ağaç", "staj", "haber", "yazılım", "usishi", "buluthan", "bilgisayar", "kitap"];
 
-var harfler = ["a", "b", "c", "ç", "d", "e", 
-			"f", "g", "ğ", "h", "ı", "i", 
-			"j" ,"k", "l", "m", "n", "o", 
-			"ö", "p", "r", "s", "ş", "t", 
-			"u", "ü", "v", "y", "z"];
+var harfler = ["a", "b", "c", "ç", "d", "e","f", "g", "ğ", "h", "ı", "i","j" ,"k", "l", "m", "n", "o", "ö", "p", "r", "s", "ş", "t","u", "ü", "v", "y", "z"];
 var kelime;
 var kelime_ekran;
+var kelime_kontrol;
 var hak = 0;
 var sembol = "_ ";
 var adam = [];
@@ -77,32 +76,37 @@ function kazandiniz(){
     return sonuc;
 }
 
-function hak_kontrol(harf, kelime){
+function hak_kontrol(harf, dizi){
     var kontrol = kelime.includes(harf);
-
-    if(kontrol === false){
-        hak++;
-    }
-    
+		if(kontrol == false){
+			hak++;
+		}
+        return hak;
 }
 
 kelime = kelime_sec(kelimeler); 
-kelime_ekran = bos_harf(kelime);  
+kelime_ekran = bos_harf(kelime);
+kelime_kontrol = harf(kelime);
 
 app.get('/', function(req, res) { 
     hak = 0;
-    res.render('anasayfa',{ kelime: kelime, kelime_ekran:kelime_goster(kelime_ekran), adam:adam, hak:hak, harf:req.params.harf, harfler:harfler}); 
+    kelime = kelime_sec(kelimeler); 
+    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(bos_harf(kelime)), adam:adam, hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
+    sonuc = false;
     res.end();  
 });
 
+app.get('/temizle', function(req, res) { 
+    hak = 0;
+    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(bos_harf(kelime)), adam:adam, hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
+    sonuc= false;
+    res.end();  
+});
 
 app.get('/:harf', function(req, res) { 
-    kelime_ekran = doldur(req.params.harf,kelime, kelime_ekran);
-    hak = hak_kontrol(req.params.harf,kelime);
-    
-    //res.send(kelime_sec(kelimeler));
+    kelime_ekran = doldur(req.params.harf, kelime, kelime_ekran);
+    hak = hak_kontrol(req.params.harf, kelime_kontrol);
     res.render('anasayfa', { kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), adam:adam, hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()});
-
     res.end();
     });
         

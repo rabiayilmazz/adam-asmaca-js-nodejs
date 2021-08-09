@@ -17,27 +17,32 @@
 	<div class="container" >
 	  <div class="row p-10">
 		<div class="col-4 text-center">
-		<a type="button" class="btn btn-success" >Kelime Değiştir</a> <br><br>
-		<a type="button" class="btn btn-success" href="/">Temizle</a> <br><br>
+		<a type="button" class="btn btn-success" href= "/" >Kelime Değiştir</a> <br><br>
+		<a type="button" class="btn btn-success" href="/temizle">Temizle</a> <br><br>
 		</div>
 		<div class="col-4" >
-			<b>Toplam Hak: 5</b> </br>
-			<b>Kullandığınız Hak:<%=hak %> </b>
-			<b id="hak"></b>
+			<b>Toplam Hak: 7</b> </br>
+			<b>Kullandığınız Hak: <%=hak %> </b>
 			<h2><%=kelime %></h2>
 			<h2><%=harf %>geldi</h2>
-			<div id="adam"><%=adam[hak]%> </div>		
+			<div id="adam"></div>	
+			<img src="/images/status_<%=hak%>.gif" alt="fhgj">	
 		</div>
 		<div class="col-4 text-center">
 			<div class="alert alert-danger">
 				<b>Kelime: <%=kelime_ekran %> </b>
-				<p id="soru"></p>
 			</div>
-			<div id="harfler">
-                <% harfler.forEach(element =>{%>
-                    <a type="button" class="btn btn-success m-1" id="btnHarf" href="/<%= element %>"><%= element %> </a>
-                <%}); %> 
-				
+			<div id="harfler">  
+				<% if (sonuc === false) { %>
+					<div class="alert alert-success">Kazandınız!</div>
+				<% } else if (sonuc === true && hak>7) { %>
+					<div class="alert alert-danger">Kaybettiniz!! <br> Aranan kelime: <b><%=kelime %> </b></div>
+				<% } else { %>
+					<% harfler.forEach(element =>{%>
+						<a type="button" class="btn btn-success m-1" id="btnHarf" href="/<%= element %>"><%= element %> </a>
+					<%}); %>
+				<% } %>
+				<b>sonuc <%=sonuc %>  </b>
 			</div> 
 			<br>	
 		</div>
