@@ -1,24 +1,30 @@
 var http = require('http')
-var express = require('express');
-var app = express();
-var path = require('path');
+const express = require('express');
+const app = express();
+const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.static("public"));
 
-var kelimeler = ["panda", "ağaç", "staj", "haber", "yazılım", "usishi", "buluthan", "bilgisayar", "kitap"];
+const kelimeler = ["panda", "ağaç", "staj", "haber", "yazılım", "usishi", "buluthan", "bilgisayar", "kitap"];
 
-var harfler = ["a", "b", "c", "ç", "d", "e","f", "g", "ğ", "h", "ı", "i","j" ,"k", "l", "m", "n", "o", "ö", "p", "r", "s", "ş", "t","u", "ü", "v", "y", "z"];
-var kelime;
-var kelime_ekran;
-var kelime_kontrol;
-var hak = 0;
-var sembol = "_ ";
+let harfler = ["a", "b", "c", "ç", "d", "e","f", "g", "ğ", "h", "ı", "i","j" ,"k", "l", "m", "n", "o", "ö", "p", "r", "s", "ş", "t","u", "ü", "v", "y", "z"];
+let kelime;
+let kelime_ekran;
+let kelime_kontrol;
+let hak = 0;
+let sembol = "_ ";
+let harf_get;
+var sayac = 0;
+var kontrol;
 	
+kelime = kelime_sec(kelimeler); 
+kelime_ekran = bos_harf(kelime);
+kelime_kontrol = harf(kelime);
 
 function kelime_sec (dizi){
-    var r = Math.floor(Math.random() * dizi.length);
+    let r = Math.floor(Math.random() * dizi.length);
     return dizi[r];
 } 
 
@@ -68,40 +74,40 @@ function kazandiniz(){
     return sonuc;
 }
 
-function hak_kontrol(harf, dizi){
-    var kontrol = kelime.includes(harf);
-		if(kontrol == false){
-			hak++;
-		}
-        return hak;
-}
-
-kelime = kelime_sec(kelimeler); 
-kelime_ekran = bos_harf(kelime);
-kelime_kontrol = harf(kelime);
-
 app.get('/', function(req, res) { 
     hak = 0;
     kelime = kelime_sec(kelimeler); 
-    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(bos_harf(kelime)), hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
-    sonuc = false;
+    sonuc = true;
+    kelime_ekran = bos_harf(kelime);
+    kelime_kontrol = harf(kelime);
+    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
+    
     res.end();  
 });
 
 app.get('/temizle', function(req, res) { 
     hak = 0;
-    sonuc= false;
-    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(bos_harf(kelime)), hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
+    sonuc = true;
+    kelime_ekran = bos_harf(kelime);
+    kelime_kontrol = harf(kelime);
+    console.log(kelime);
+    res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
     res.end();  
 });
 
 app.get('/:harf', function(req, res) { 
+    sayac++;
+    kontrol = kelime.includes(req.params.harf);
+    if(sayac %2 == 0){
+        if(kontrol == false){
+            hak++;
+        } 
+        console.log("geldi");
+        console.log(kontrol)
+    }
     kelime_ekran = doldur(req.params.harf, kelime, kelime_ekran);
-    hak = hak_kontrol(req.params.harf, kelime_kontrol);
-    res.render('anasayfa', { kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()});
+    res.render('anasayfa', { kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), hak : hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()});
     res.end();
     });
         
-app.listen(8080);
-
-    
+app.listen(8080);    

@@ -23,10 +23,11 @@
 		<div class="col-4" >
 			<b>Toplam Hak: 7</b> </br>
 			<b>Kullandığınız Hak: <%=hak %> </b>
-			<h2><%=kelime %></h2>
-			<h2><%=harf %>geldi</h2>
-			<div id="adam"></div>	
-			<img src="/images/status_<%=hak%>.gif" alt="fhgj">	
+			<div id="adam"></div>
+			<% if (hak<=7) { %>
+				<img src="/images/status_<%=hak%>.gif" alt="fhgj">
+			<% }%>	
+				
 		</div>
 		<div class="col-4 text-center">
 			<div class="alert alert-danger">
@@ -42,7 +43,6 @@
 						<a type="button" class="btn btn-success m-1" id="btnHarf" href="/<%= element %>"><%= element %> </a>
 					<%}); %>
 				<% } %>
-				<b>sonuc <%=sonuc %>  </b>
 			</div> 
 			<br>	
 		</div>
