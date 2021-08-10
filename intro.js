@@ -90,7 +90,6 @@ app.get('/temizle', function(req, res) {
     sonuc = true;
     kelime_ekran = bos_harf(kelime);
     kelime_kontrol = harf(kelime);
-    console.log(kelime);
     res.render('anasayfa',{kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), hak:hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()}); 
     res.end();  
 });
