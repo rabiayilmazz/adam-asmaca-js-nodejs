@@ -101,9 +101,7 @@ app.get('/:harf', function(req, res) {
     if(sayac %2 == 0){
         if(kontrol == false){
             hak++;
-        } 
-        console.log("geldi");
-        console.log(kontrol)
+        }
     }
     kelime_ekran = doldur(req.params.harf, kelime, kelime_ekran);
     res.render('anasayfa', { kelime: kelime, kelime_ekran: kelime_goster(kelime_ekran), hak : hak, harf:req.params.harf, harfler:harfler, sonuc:kazandiniz()});

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<title>Adam Asmaca</title>
+</head>
+<script>
+	
+	var kelimeler = ["panda", "ağaç", "staj", "haber", "yazılım", "usishi", "buluthan", "bilgisayar", "kitap"];
+	var kelime;
+	var sembol = "_ ";
+	var durum;
+	
+	var btnHarf = document.querySelectorAll("#btnHarf");
+	
+	
+	
+	var adam = [];
+	adam[0]='<pre> -------</br> |/    |</br> |</br> |</br> |</br> |</br> |</br>/|\\</br>-------------</pre>';
+	adam[1]='<pre> -------</br> |/    |</br> |     o</br> |</br> |</br> |</br> |</br>/|\\</br>-------------</pre>';
+	adam[2]='<pre> -------</br> |/    |</br> |     o</br> |     |</br> |     |</br> |</br> |</br>/|\\</br>-------------</pre>';
+	adam[3]='<pre> -------</br> |/    |</br> |     o</br> |     |</br> |     |</br> |    /</br> |</br>/|\\</br>-------------</pre>';
+	adam[4]='<pre> -------</br> |/    |</br> |     o</br> |     |</br> |     |</br> |    / \\</br> |</br>/|\\</br>-------------</pre>';
+	adam[5]='<pre> -------</br> |/    |</br> |     o</br> |   --|</br> |     |</br> |    / \\</br> |</br>/|\\</br>-------------</pre>';
+	adam[6]='<pre> -------</br> |/    |</br> |     o</br> |   --|--</br> |     |</br> |    / \\</br> |</br>/|\\</br>---OYUN BİTTi--</pre>';
+	
+	var kelime_ekran;
+	var hak = 0;
+	kelime = kelime_sec(kelimeler);
+	
+	function basla() {
+		hak = 0;
+		kelime_ekran = bos_harf(kelime);
+		document.getElementById("soru").innerHTML = kelime_goster(kelime_ekran);
+		document.getElementById("hak").innerHTML = hak;
+		document.getElementById("adam").innerHTML = adam[hak];
+	}
+	
+	function kelime_sec (dizi){
+		var r = Math.floor(Math.random() * dizi.length);
+		return dizi[r];
+	}
+	
+	function harf(kelime){
+		var dizi_harf = [];
+		var uzunluk = kelime.length;
+	
+		for ( var i=0; i < uzunluk ; i++) { 
+			dizi_harf[i] = kelime.substr(i,1);
+		}
+	
+		return dizi_harf;
+	}
+	
+	function bos_harf(kelime){
+		var dizi_harf = [];
+		var uzunluk = kelime.length;
+	
+		for (var i=0; i < uzunluk ; i++) { 
+			dizi_harf[i] = sembol;
+		}
+	
+		return dizi_harf;
+	}
+	
+	function kelime_goster(dizi){
+		var metin = "";
+		
+		dizi.forEach(element => {
+		metin += element;
+		});
+		return metin;
+	}
+	
+	function hak_kontrol(harf, kelime){
+		var kontrol = kelime.includes(harf);
+		if(kontrol == false){
+			hak++;
+		}
+	}
+	
+	function doldur(harf){
+		for (const key in kelime) {
+			if (kelime[key] == harf) {
+				kelime_ekran[key] = harf;
+			} 
+		}
+		hak_kontrol(harf,kelime);
+		
+		document.getElementById("hak").innerHTML = hak;
+	
+		document.getElementById("soru").innerHTML = kelime_goster(kelime_ekran);
+		document.getElementById("adam").innerHTML = adam[hak];
+	
+	
+		if(kazandiniz() == false){
+			document.getElementById("harfler").innerHTML = '<div class="alert alert-success" role="alert"><strong>Kazandınız!</strong></div>';
+		}
+	
+		if(hak >= 6){
+			document.getElementById("harfler").innerHTML = '<div class="alert alert-danger text-center"><strong>Aranan Kelime: '+kelime+' </strong> </div>';
+		}
+	}
+	
+	function getHarf(harf) {
+	var input_var= document.getElementById('btnharf');
+	switch(harf){
+		case 'a':doldur('a'); break;
+		case 'b':doldur('b'); break;
+		case 'c':doldur('c'); break;
+		case 'ç':doldur('ç'); break;
+		case 'd':doldur('d'); break;
+		case 'e':doldur('e'); break;
+		case 'f':doldur('f'); break;
+		case 'g':doldur('g'); break;
+		case 'ğ':doldur('ğ'); break;
+		case 'h':doldur('h'); break;
+		case 'ı':doldur('ı'); break;
+		case 'i':doldur('i'); break;
+		case 'j':doldur('j'); break;
+		case 'k':doldur('k'); break;
+		case 'l':doldur('l'); break;
+		case 'm':doldur('m'); break;
+		case 'n':doldur('n'); break;
+		case 'o':doldur('o'); break;
+		case 'ö':doldur('ö'); break;
+		case 'p':doldur('p'); break;
+		case 'r':doldur('r'); break;
+		case 's':doldur('s'); break;
+		case 'ş':doldur('ş'); break;
+		case 't':doldur('t'); break;
+		case 'u':doldur('u'); break;
+		case 'ü':doldur('ü'); break;
+		case 'v':doldur('v'); break;
+		case 'y':doldur('y'); break;
+		case 'z':doldur('z'); break;
+	}
+	}
+	
+	function kazandiniz(){
+		var sonuc = kelime_ekran.includes(sembol);
+		return sonuc;
+	}
+	</script>
+<body>
+	
+	<div class="alert alert-primary text-center">
+		<strong>ADAM ASMACA</strong> 
+	</div>
+	
+	<div class="container" >
+	  <div class="row p-10">
+		<div class="col-4 text-center">
+		<a type="button" class="btn btn-success" onclick="basla()">Kelime Değiştir</a> <br><br>
+		</div>
+		<div class="col-4" >
+		<b>Toplam Hak: 5</b> </br>
+		<b>Kullandığınız Hak: </b>
+		<b id="hak">0</b>
+		<div id="adam"></div>		
+		</div>
+		<div class="col-4 text-center">
+			<div class="alert alert-danger">
+				<b>Kelime: </b>
+				<p id="soru"></p>
+			</div>
+			<div id="harfler">
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('a')" href="?harf=a">a</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('b')">b</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('c')">c</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('ç')">ç</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('d')">d</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('e')">e</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('f')">f</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('g')">g</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('ğ')">ğ</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('h')">h</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('ı')">ı</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('i')">i</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('j')">j</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('k')">k</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('l')">l</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('m')">m</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('n')">n</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('o')">o</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('ö')">ö</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('p')">p</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('r')">r</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('s')">s</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('ş')">ş</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('t')">t</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('u')">u</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('ü')">ü</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('v')">v</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('y')">y</a> 
+				<a type="button" class="btn btn-success m-1" id="btnHarf" onclick="getHarf('z')">z</a> 
+			</div> 
+			<br>	
+		</div>
+	  </div>
+	</div>
+</body>
+</html>
+
+
+
+
+<!-- -->
