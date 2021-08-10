@@ -2,6 +2,7 @@ var http = require('http')
 const express = require('express');
 const app = express();
 const path = require('path');
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -47,7 +48,6 @@ function harf(kelime){
 
     return dizi_harf;
 }
-
 
 function bos_harf(kelime){
     var dizi_harf = [];
