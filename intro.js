@@ -107,4 +107,5 @@ app.get('/:harf', function(req, res) {
     res.end();
     });
         
-app.listen(8080);    
+app.listen(8080); 
+// post ve get kullanılacak
