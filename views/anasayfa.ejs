@@ -13,11 +13,14 @@
 	<script> 
 		$(document).ready(function(){
 			$("#btn1").click(function(){
-			alert("Kelime değiştiriliyor...");
-		});
+				alert("Kelime değiştiriliyor...");
+			});
 			$("#btn2").click(function(){
-			alert("Veriler temizleniyor...");
-		});
+				alert("Veriler temizleniyor...");
+			});
+			$("#btn1").click(function(){
+				$(this).hide("slow");
+			});	
 	});
 	
 	</script>
